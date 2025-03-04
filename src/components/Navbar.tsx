@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import logo from '../assets/logo.png';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Bike, ChevronDown } from 'lucide-react';
 
@@ -42,15 +43,14 @@ const Navbar = () => {
       className={`fixed w-full z-50 transition-all duration-300 ${
         scrolled ? 'bg-white/90 backdrop-blur-md shadow-md' : 'bg-transparent'
       }`}
+      style={{ background: 'linear-gradient(to right, #0a4a0f, #1a1a1a)' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
-              <Bike className="h-8 w-8 text-green-600" />
-              <span className="text-xl font-bold bg-gradient-to-r from-green-600 to-blue-500 bg-clip-text text-transparent">
-                PrayanaElectric
-              </span>
+            <Link to="/" className="flex items-center">
+            <img src={logo} alt="PrayanaElectric Logo" className="h-10 w-32" />
+              
             </Link>
           </div>
 
@@ -62,8 +62,8 @@ const Navbar = () => {
                 to={link.path}
                 className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                   location.pathname === link.path
-                    ? 'text-green-600'
-                    : 'text-gray-700 hover:text-green-600'
+                    ? 'text-white'
+                    : 'text-gray-300 hover:text-white'
                 }`}
               >
                 {link.name}
@@ -74,13 +74,13 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-3">
             <Link
               to="/login"
-              className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors"
+              className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors"
             >
               Login
             </Link>
             <Link
               to="/signup"
-              className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors"
+              className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors"
             >
               Sign Up
             </Link>
@@ -103,7 +103,7 @@ const Navbar = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-green-600 focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white focus:outline-none"
             >
               {isOpen ? (
                 <X className="h-6 w-6" />
