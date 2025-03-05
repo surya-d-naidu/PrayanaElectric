@@ -9,6 +9,9 @@ import bookingRoutes from './routes/bookings.js';
 
 dotenv.config();
 
+console.log('GOOGLE_CLIENT_ID:', process.env.GOOGLE_CLIENT_ID); // Add this line
+console.log('GOOGLE_CLIENT_SECRET:', process.env.GOOGLE_CLIENT_SECRET); // Add this line
+
 const app = express();
 
 // Middleware

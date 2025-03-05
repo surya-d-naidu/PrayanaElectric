@@ -4,7 +4,10 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { Strategy as LinkedInStrategy } from 'passport-linkedin-oauth2';
 import User from '../models/User.js';
 
-dotenv.config();
+dotenv.config({ path: './server/.env' }); // Specify the path to the .env file
+
+console.log('GOOGLE_CLIENT_ID:', process.env.GOOGLE_CLIENT_ID); // Add this line
+console.log('GOOGLE_CLIENT_SECRET:', process.env.GOOGLE_CLIENT_SECRET); // Add this line
 
 passport.use(
   new GoogleStrategy(

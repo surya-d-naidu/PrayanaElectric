@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -8,6 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +33,7 @@ const Login = () => {
       console.log('Login successful:', data);
   
       // Redirect or update state
-      window.location.href = '/dashboard'; // Change based on your route
+     navigate('/') // Change based on your route
   
     } catch (error) {
       console.error('Login error:', error.message);
