@@ -35,11 +35,51 @@ const Signup = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle signup logic here
-    console.log('Signup attempt with:', formData);
-  };
+  
+    // Check if passwords match
+    if (formData.password !== formData.confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+  
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          password: formData.password,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(data.message || 'Signup failed');
+      }
+  
+      // Store token (if returned)
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+      }
+  
+      console.log('Signup successful:', data);
+  
+      // Redirect to login or dashboard
+      window.location.href = '/dashboard'; // Change this to your route
+  
+    } catch (error: any) {
+      console.error('Signup error:', error.message);
+      alert(error.message);
+    }
+  };  
 
   const getPasswordStrengthText = () => {
     if (passwordStrength === 0) return 'Very Weak';

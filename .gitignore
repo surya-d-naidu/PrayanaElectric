@@ -12,6 +12,7 @@ dist
 dist-ssr
 .bolt
 *.local
+server/.env
 
 # Editor directories and files
 .vscode/*

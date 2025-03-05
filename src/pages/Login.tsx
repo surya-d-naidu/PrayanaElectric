@@ -9,11 +9,36 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Login attempt with:', { email, password, rememberMe });
-  };
+  
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+  
+      // Store token in localStorage
+      localStorage.setItem('token', data.token);
+      console.log('Login successful:', data);
+  
+      // Redirect or update state
+      window.location.href = '/dashboard'; // Change based on your route
+  
+    } catch (error) {
+      console.error('Login error:', error.message);
+      alert(error.message);
+    }
+  };  
 
   return (
     <div className="min-h-screen pt-16 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -135,7 +160,7 @@ const Login = () => {
               <div className="mt-6 grid grid-cols-2 gap-3">
                 <div>
                   <a
-                    href="#"
+                    href="http://localhost:5000/api/auth/google/callback"
                     className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                   >
                     <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
